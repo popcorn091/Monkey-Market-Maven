@@ -435,9 +435,9 @@ async def _sell(ctx,
     average_cost_price = total_cost / current_shares
     
     if round(shares_to_sell * average_cost_price * handing_fee ,2) < 20:
-        sell_amount = round(shares_to_sell * current_price - (current_price * (ST_tax) + 20), 2)
+        sell_amount = round(shares_to_sell * current_price * (1 - ST_tax) - 20), 2)
     else:
-        sell_amount = round(shares_to_sell * current_price - current_price * ( handing_fee + ST_tax), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.1820
+        sell_amount = round(shares_to_sell * current_price * (1 - handing_fee + ST_tax), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.1820
 
     profit_loss = round(sell_amount - average_cost_price * shares_to_sell , 2)
 
