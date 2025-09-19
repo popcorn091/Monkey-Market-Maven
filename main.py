@@ -751,7 +751,7 @@ async def _monkey(ctx, *args):
             return
         
         if round(shares * stock_price * handing_fee ,2) < 20:
-            buy_amount = round(shares * stock_price * (1 + ST_tax) + 20), 2)
+            buy_amount = round(shares * stock_price * (1 + ST_tax) + 20, 2)
         else:
             buy_amount = round(shares * stock_price * (1 + handing_fee + ST_tax), 2) #新增買入含手續費計算，手續費低於20元以20元計  za 250919.1840
         
