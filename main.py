@@ -190,11 +190,11 @@ async def on_message(message):
             
                         
             if round(sell_price * shares_to_sell * handing_fee ,2) < 20:
-                sell_amount = round(sell_price - (avg_cost + (sell_price * ST_tax) + 20), 2)
+                sell_amount = round(shares_to_sell * sell_price - (sell_price * ST_tax + 20), 2)
             else:
-                sell_amount = round(sell_price - (avg_cost + (sell_price * (handing_fee + ST_tax))), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.1901
+                sell_amount = round(shares_to_sell * sell_price - (sell_price * (handing_fee + ST_tax)), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.2048
 
-            profit_loss = round(sell_price * shares_to_sell - sell_amount , 2)
+            profit_loss = round(sell_amount - avg_cost * shares_to_sell , 2)
             
             log_to_user_csv(str(user_id), "!monkey", "庫存", stock_code,
                             stock_name, -shares_to_sell, sell_price,
@@ -435,11 +435,11 @@ async def _sell(ctx,
     average_cost_price = total_cost / current_shares
     
     if round(shares_to_sell * average_cost_price * handing_fee ,2) < 20:
-        sell_amount = round(shares_to_sell * average_cost_price * (1 + ST_tax) + 20, 2)
+        sell_amount = round(shares_to_sell * current_price - (current_price * (ST_tax) + 20), 2)
     else:
-        sell_amount = round(shares_to_sell * average_cost_price * (1 + handing_fee + ST_tax), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.1820
+        sell_amount = round(shares_to_sell * current_price - current_price * ( handing_fee + ST_tax), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.1820
 
-    profit_loss = round(current_price * shares_to_sell - sell_amount , 2)
+    profit_loss = round(sell_amount - average_cost_price * shares_to_sell , 2)
 
     log_to_user_csv(user_id, "!sell", "庫存", stock_code, stock_name,
                     -shares_to_sell, current_price, -sell_amount)
@@ -502,7 +502,7 @@ async def summary_image(ctx):
             if round(current_value * handing_fee ,2) < 20:
                 profit_loss = round(current_value - (row['總成本'] + (current_value * ST_tax) + 20), 2)
             else:
-                profit_loss = round(current_value - (row['總成本'] + (current_value * (handing_fee + ST_tax))), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.1840
+                profit_loss = round(current_value - (row['總成本'] + (current_value * (handing_fee + ST_tax))), 2) #新增賣出含手續費&證交稅計算，手續費低於20元以20元計  za 250919.2048
             
             profit_pct = profit_loss / row['總成本'] * 100
             rows.append([
