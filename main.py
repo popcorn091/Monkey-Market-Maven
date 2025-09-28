@@ -774,7 +774,7 @@ async def _monkey(ctx, *args):
         shares_held = int(stock_to_sell['股數'])
         stock_name = get_stock_info(stock_code)[1]
         shares_to_sell = random.randint(1, shares_held)
-
+        stock_price = get_stock_price(stock_code)
         # 計算平均成本
         stock_inventory = inventory[inventory['股票代碼'] == stock_code]
         total_cost = stock_inventory['金額'].sum()
@@ -792,7 +792,7 @@ async def _monkey(ctx, *args):
         #asyncio.create_task(handle_monkey_timeout(ctx.channel, user_id))
 
         await ctx.send(
-            f"{ctx.author.mention}，猴子決定賣出 **{shares_to_sell}** 股的 **{stock_name}({stock_code})**，請在 120 秒內直接於頻道中輸入您要的賣出價格 (純數字)："
+            f"{ctx.author.mention}，猴子決定賣出 **{shares_to_sell}** 股的 **{stock_name}({stock_code})**，目前市場價格為 **{stock_price}** 元，請在 120 秒內直接於頻道中輸入您要的賣出價格 (純數字)："   #新增顯示市場價格與提前拉取價格 by za 250928.2026
         )
 
     # --- 成功執行後，寫入冷卻紀錄 (重要) ---
