@@ -1,5 +1,17 @@
-discord.py
-python-dotenv
-pandas
-requests
-Pillow
+# Core Discord bot library
+discord.py>=2.3.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Async SQLite database
+aiosqlite>=0.19.0
+
+# HTTP requests for stock price API
+requests>=2.31.0
+
+# Optional: Image generation for portfolio summary
+Pillow>=10.0.0
+
+# Note: pandas is NO LONGER REQUIRED for core functionality
+# (only needed if you want to run the CSV migration script)
