@@ -1,4 +1,3 @@
-
 # Core Discord bot library
 discord.py>=2.3.0
 
